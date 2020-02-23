@@ -42,7 +42,7 @@ void client(int readfd, int writefd)
 	ssize_t n;
 
 	char buff[MAXLINE];
-
+	printf("Enter the name of file to read:");
 		/* read pathname */
 	fgets(buff, MAXLINE, stdin);
 	len = strlen(buff);					/* fgets() guarntees null byte at the end */
