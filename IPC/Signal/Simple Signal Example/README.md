@@ -1,1 +1,1 @@
-### Simple example of 
+### Simple program to catch SIGUSR1 and SIGUSR2
