@@ -8,3 +8,5 @@ space of the process by `mmap`.
 The two-step process involved with Posix shared memory requires.
 > 1. calling `shm_open`, specifying a name argument, to either  create a new shared memory object or to open an existing shared memory object, followed by<br />
 > 2. calling `mmap` to map the shared memory into the address space of the calling process.
+
+When dealing with `mmap`, the size of regular file or a shared memory object can be changed by calling `ftruncate`.
