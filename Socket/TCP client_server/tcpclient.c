@@ -7,38 +7,82 @@
 #include <stdio.h>
 
 #define	SERV_PORT       9877
-#define IP_ADDR         "127.0.0.100"
+#define IP_ADDR         "127.0.0.1"
 #define	MAXLINE		    4096
 
-void str_cli(FILE* , int );
+int str_cli(FILE* , int );
 
 int main()
 {
     int sockfd;
     struct sockaddr_in servaddr;
 
-    sockfd = socket(AF_INET, SOCK_STREAM, 0);
+    /* Create a socket that uses an internet IPv4 address,
+     * Set the socket to be stream based (TCP),
+     * choose the default protocol */
+    if((sockfd = socket(AF_INET, SOCK_STREAM, 0)) == -1)
+    {
+        fprintf(stderr, "ERROR: failed to create the socket\n");
+        return -1;
+    }
 
+    /* Initialize the server address struct with zeros */
     bzero(&servaddr, sizeof(servaddr));
-    servaddr.sin_family = AF_INET;
+
+    /* Fill in the server address */
+    servaddr.sin_family = AF_INET;                      /* using IPv4 */
     servaddr.sin_port = htons(SERV_PORT);
-    inet_pton(AF_INET, IP_ADDR, &servaddr.sin_addr);
+    if(inet_pton(AF_INET, IP_ADDR, &servaddr.sin_addr) == -1)
+    {
+        fprintf(stderr, "ERROR: invalid address\n");
+        return -1;
+    }
 
-    connect(sockfd, (struct sockaddr*)&servaddr, sizeof(servaddr));
+    /* Connect to the server */
+    if(connect(sockfd, (struct sockaddr*)&servaddr, sizeof(servaddr)) == -1)
+    {
+        fprintf(stderr, "ERRRO: failed to connect\n");
+        return -1;
+    }
 
-    str_cli(stdin, sockfd);  
+    /* Call client processing function */
+    if(str_cli(stdin, sockfd) == -1)
+    {
+        fprintf(stderr, "ERROR: failed client processing");
+        return -1;
+    }  
 
     exit(0);   
 }
 
-void str_cli(FILE* fp, int sockfd)
+int str_cli(FILE* fp, int sockfd)
 {
     char sendline[MAXLINE], recvline[MAXLINE];
 
+    /* Get input line from standard input */
     while (fgets(sendline, MAXLINE,fp) != NULL)
     {
-        write(sockfd, sendline, strlen(sendline));
-        read(sockfd, recvline, MAXLINE);
-        fputs(recvline, stdout);
+        /* write line to server */
+        if(write(sockfd, sendline, strlen(sendline)) == -1)
+        {
+            fprintf(stderr, "ERROR: failed to write to server\n");
+            return -1;
+        }
+
+        /* read from server */
+        if(read(sockfd, recvline, MAXLINE) == -1)
+        {
+            fprintf(stderr, "ERROR: failed to read from server\n");
+            return -1;
+        }
+
+        /* write line to standard output */
+        if(fputs(recvline, stdout) == EOF)
+        {
+            fprintf(stderr, "ERROR: failed to put to standard output");
+            return -1;
+        }
     }
+    /* Close connection to the server */
+    close(sockfd);
 }
