@@ -1,0 +1,3 @@
+Programs using POSIX messges on Lunux must link with
+the real-time library, librt using the compiler option 
+-lrt.
