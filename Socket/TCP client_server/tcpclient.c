@@ -49,8 +49,19 @@ int main()
     if(str_cli(stdin, sockfd) == -1)
     {
         fprintf(stderr, "ERROR: failed client processing");
+        /* Close connection to the server */
+        close(sockfd);
         return -1;
-    }  
+    }
+
+    /* End of client processing */
+    if(str_cli(stdin, sockfd) == 0)
+    {
+        fprintf(stdout, "END: end of client processing");
+        /* Close connection to the server */
+        close(sockfd);
+        exit(0);
+    }
 
     exit(0);   
 }
@@ -58,6 +69,7 @@ int main()
 int str_cli(FILE* fp, int sockfd)
 {
     char sendline[MAXLINE], recvline[MAXLINE];
+    int n;
 
     /* Get input line from standard input */
     while (fgets(sendline, MAXLINE,fp) != NULL)
@@ -70,12 +82,13 @@ int str_cli(FILE* fp, int sockfd)
         }
 
         /* read from server */
-        if(read(sockfd, recvline, MAXLINE) == -1)
+        if((n = read(sockfd, recvline, MAXLINE)) == -1)
         {
             fprintf(stderr, "ERROR: failed to read from server\n");
             return -1;
         }
-
+        /* null terminate */
+        recvline[n] = 0;
         /* write line to standard output */
         if(fputs(recvline, stdout) == EOF)
         {
@@ -83,6 +96,5 @@ int str_cli(FILE* fp, int sockfd)
             return -1;
         }
     }
-    /* Close connection to the server */
-    close(sockfd);
+    return 0;
 }

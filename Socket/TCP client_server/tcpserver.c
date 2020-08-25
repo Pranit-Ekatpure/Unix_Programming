@@ -80,5 +80,5 @@ void str_echo(int sockfd)
     char buf[MAXLINE];
     /* Read from client */
     while((n = read(sockfd, buf, MAXLINE)) > 0)
-        write(sockfd, buf, n); /* Write backt to the client */
+        write(sockfd, buf, n); /* Write back to the client */
 }
