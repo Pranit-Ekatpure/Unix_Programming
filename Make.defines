@@ -1,0 +1,8 @@
+# This file contains common compilation defines
+
+CC = gcc
+LD = gcc
+CFLAGS = -Wall -g
+LIBS =
+
+CLEANFILES = *.o *.out
