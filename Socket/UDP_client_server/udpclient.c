@@ -14,7 +14,7 @@ int datagram_cli(FILE*, int, struct sockaddr*, socklen_t);
 
 int main()
 {
-    int sockfd;
+    int sockfd, return_val;
     struct sockaddr_in servaddr;
 
     /* Create a socket that uses an internet IPv4 address,
@@ -39,16 +39,15 @@ int main()
     }
 
     /* Perform client processing */
-    if(datagram_cli(stdin, sockfd, (struct sockaddr*)&servaddr, sizeof(servaddr)) == -1)
+    return_val = datagram_cli(stdin, sockfd, (struct sockaddr*)&servaddr, sizeof(servaddr));
+    if(return_val == -1)                    /* Error in client processing */
     {
         fprintf(stderr, "ERROR: failed client processing");
         /* Close connection to server */
         close(sockfd);
         return -1;
     }
-    
-    /* End of client processing */
-    if(datagram_cli(stdin, sockfd, (struct sockaddr*)&servaddr, sizeof(servaddr)) == 0)
+    else if(return_val == 0)                 /* End of client processing */
     {
         fprintf(stdout, "END: end of client processing");
         /* Close connection to server */

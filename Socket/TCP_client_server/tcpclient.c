@@ -14,7 +14,7 @@ int str_cli(FILE* , int );
 
 int main()
 {
-    int sockfd;
+    int sockfd, return_val;
     struct sockaddr_in servaddr;
 
     /* Create a socket that uses an internet IPv4 address,
@@ -46,16 +46,15 @@ int main()
     }
 
     /* Call client processing function */
-    if(str_cli(stdin, sockfd) == -1)
+    return_val = str_cli(stdin, sockfd);
+    if(return_val == -1)                 /* Error in client processing */
     {
         fprintf(stderr, "ERROR: failed client processing");
         /* Close connection to the server */
         close(sockfd);
         return -1;
     }
-
-    /* End of client processing */
-    if(str_cli(stdin, sockfd) == 0)
+    else if(return_val == 0)             /* End of client processing */
     {
         fprintf(stdout, "END: end of client processing");
         /* Close connection to the server */
