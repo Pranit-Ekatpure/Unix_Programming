@@ -1,6 +1,6 @@
 # Unix_Programming
 ### This repository contains practice programs, written in C, on Unix System Programming. 
-#### It covers following topics:
+### It covers following topics:
 ### 1. Inter Process Communication (IPC)
 - PIPE
 - FIFO
