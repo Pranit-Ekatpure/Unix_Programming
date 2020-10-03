@@ -1,7 +1,7 @@
-# Socket
+# Socket 
 This section contain examples on how to use the protocols in the TCP/IP suite: TCP, UDP and SCTP. These transport protocols use the network-layer protocol IP, either IPv4 or IPv6.
 
-**Socket**: To perform network I/O, desired communication protocol socket is created first. It is a endpoint of a two way communication link between two programs running on the network. 
+To perform network I/O, desired communication protocol **socket** is created first. It is a endpoint of a two way communication link between two programs running on the network. **Socket programming** is a way of connecting two nodes on a network to communicate with each other.
 
 ## TCP
 Transmission Control Protocol.
