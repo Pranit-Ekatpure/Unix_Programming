@@ -1,4 +1,4 @@
-# This file contains common compilation defines
+# This file contains common compilation definitions
 
 CC = gcc
 LD = gcc
