@@ -28,4 +28,4 @@ Server handles multiple clients. Server creates FIFO named SERV_FIFO to read cli
     Enter the file name that client with PID 10795 want to read: test.txt
     (Content of test.txt read by server will be diplayed here)
 ```
-    (Server opens file whose pathname received from client, reads file and write to client. Client reads from server and write to standard output.)
+(Server opens file whose pathname received from client, reads file and write to client. Client reads from server and write to standard output.)

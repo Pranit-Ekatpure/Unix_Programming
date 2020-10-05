@@ -15,11 +15,11 @@ Here, one structure **struct mymesg** is added which stores length of message, t
 ```
 
 ### Running the example
-- 
+- Run example as follows
 ```
     $ ./main_client_server
     Client: Enter name of file to be read by server - test.txt
     (Content of test.txt read by server will be diplayed here)
 ```
-    (Server opens file whose pathname received from client, reads file and write to client. Client reads from server and write to standard output.)
+(Server opens file whose pathname received from client, reads file and write to client. Client reads from server and write to standard output.)
 
