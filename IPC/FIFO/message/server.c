@@ -30,8 +30,11 @@ void server(int readfd, int writefd)
 
     /* read pathname from IPC channel */
     mesg.mesg_type = 1;
-    if((n = mesg_recv(readfd, &mesg)) == 0)
+    if((n = mesg_recv(readfd, &mesg)) <= 0)
+    {
         fprintf(stderr,"ERROR: pathname missing\n");
+        return;
+    }
 
     /* null terminate pathname */
     mesg.mesg_data[n] = '\0';           

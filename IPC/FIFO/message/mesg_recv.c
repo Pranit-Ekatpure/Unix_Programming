@@ -27,14 +27,36 @@ ssize_t mesg_recv(int fd, struct mymesg *mptr)
     ssize_t n;
 
     /* read message header first, to get len of data that follows */
-    if((n = read(fd, mptr, MESGHDRSIZE)) == 0)
-        return 0;             /* end of file */
+    if((n = read(fd, mptr, MESGHDRSIZE)) < 0)
+    {
+        fprintf(stderr, "ERROR: read failed\n");
+        return -1;
+    }
+    else if(n == 0)
+    {
+        /* end of file */
+        return 0;
+    }                
     else if(n != MESGHDRSIZE)
+    {
         fprintf(stderr,"ERROR: message header: expected %ld, got %ld", MESGHDRSIZE, n);
-
+        return -1;
+    }
+    /* read the actual message */
     if((len = mptr->mesg_len) > 0)
-        if((n = read(fd, mptr->mesg_data, len)) != len)
+    {
+        n = read(fd, mptr->mesg_data, len);
+        if(n < 0)
+        {
+            fprintf(stderr, "ERROR: read failed\n");
+            return -1;
+        }
+        if(n != len)
+        {
             fprintf(stderr,"ERROR: message data: expected %ld, got %ld", len, n);
+            return -1;
+        }
+    }
 
     return (len);
 }
