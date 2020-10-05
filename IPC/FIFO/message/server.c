@@ -63,6 +63,7 @@ void server(int readfd, int writefd)
                 fprintf(stderr, "ERROR: error in reading file\n");
                 return;
             }
+            /* write to client */
             mesg.mesg_len = strlen(mesg.mesg_data);
             if(mesg_send(writefd, &mesg) != (MESGHDRSIZE + mesg.mesg_len))
             {
