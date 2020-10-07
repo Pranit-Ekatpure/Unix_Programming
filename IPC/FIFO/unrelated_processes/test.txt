@@ -1,4 +1,4 @@
-(.)
+(-)
 (\\_.-.
 _/|_   :
 Successfull unrealated process client-server run using FIFOs.

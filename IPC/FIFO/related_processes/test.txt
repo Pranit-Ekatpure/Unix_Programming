@@ -1,1 +1,1 @@
-File read by client!!!
+File read by server!
