@@ -30,7 +30,7 @@ void client(int readfd, int writefd)
     printf("Client: Enter name of file to be read by server - ");
 
     /* read pathname */
-    if(fgets(mesg.mesg_data, MAXMESGDATA, stdin) < 0)
+    if(fgets(mesg.mesg_data, MAXMESGDATA, stdin) == NULL && ferror(stdin))
     {
         fprintf(stderr, "ERROR: failed to read pathname\n");
         return;
