@@ -96,7 +96,7 @@ int main(void)
     if(waitpid(childpid, NULL, 0) == -1)
         fprintf(stderr, "ERROR: waitpid\n");         
 
-    /* close fds */
+    /* close FIFOs */
     if(close(readfd) == -1)
         fprintf(stderr, "ERROR: close readfd\n");
     if(close(writefd) == -1)
