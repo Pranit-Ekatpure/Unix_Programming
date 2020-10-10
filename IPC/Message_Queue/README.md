@@ -18,22 +18,20 @@ The **mq_getattr** function used to get attributes of queue.
    - mq_curmsgs: numeber of messages currently on queue 
 
 The **mq_setattr** function sets the attributes for the queue.
-```
-But only mq_flag can be set or cleared with this function. The maximum number of message per queue and the maximum number of bytes per message can be set only
+- But only mq_flag can be set or cleared with this function. The maximum number of message per queue and the maximum number of bytes per message can be set only
 when queue is created, and the number of messages currently on the queue can be fetched but not set.
-```
+
 
 The **mq_send** and **mq_receive** functions:
-```
-These two functions are used to place a message onto a queue and take a message off a queue respectively. Every message has a priority. `mq_receive` always returns the oldest message of the highest priority from the specified queue.
-```
+
+- These two functions are used to place a message onto a queue and take a message off a queue respectively. Every message has a priority. `mq_receive` always returns the oldest message of the highest priority from the specified queue.
+
 
 The **mq_notify** function:
-```
-Posix message queues allow for an `asynchronous event notification` when a message is placed onto an empty message queue. This notification can be either: the generation of a signal, or the creation  of a thread to execute a specified function.
 
-This function establishes or removes the asynchronous event notification for the specified queue.
-```
+- Posix message queues allow for an `asynchronous event notification` when a message is placed onto an empty message queue. This notification can be either: the generation of a signal, or the creation  of a thread to execute a specified function.
+- This function establishes or removes the asynchronous event notification for the specified queue.
+
 ### Compilation Steps
 - To generate executables **mqcreate**, **mqgetattr**, **mqsend**, **mqreceive**, **mqunlink** use command:
 ``` 
