@@ -166,7 +166,7 @@ void *consume(void *arg)
 {
     int i;
     /* Verify that each item in the array is correct and print a message if an
-     * erro is found */
+     * error is found */
     for(i = 0; i < nitems; i++)
     {
         if(shared.buff[i] != i)
