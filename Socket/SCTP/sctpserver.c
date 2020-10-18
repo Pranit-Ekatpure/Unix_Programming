@@ -21,7 +21,7 @@
 *******************************************************************************/
 #define BUFFSIZE        512
 #define	SERV_PORT       9877
-#define	LISTENQ		    1024
+#define	LISTENQ         1024
 /* Default number of streams */
 #define NUM_STREAMS     10          
 

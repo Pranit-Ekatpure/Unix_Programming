@@ -19,8 +19,8 @@
 * Preprocessor Constants
 *******************************************************************************/
 #define	SERV_PORT       9877
-#define	LISTENQ		    1024
-#define	MAXLINE		    4096
+#define	LISTENQ         1024
+#define	MAXLINE         4096
 
 /******************************************************************************
 * Function Prototypes
