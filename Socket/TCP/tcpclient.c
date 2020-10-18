@@ -1,7 +1,7 @@
 /******************************************************************************
 * Filename              : tcpclient.c
 * Author                : Pranit Ekatpure
-* Description           : This file conatain TCP client-server example's client
+* Description           : This file contain TCP client-server example's client
 *                         implementation.
 *******************************************************************************/
 

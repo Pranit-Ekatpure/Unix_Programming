@@ -1,7 +1,7 @@
 /******************************************************************************
 * Filename              : sctpserver.c
 * Author                : Pranit Ekatpure
-* Description           : This file conatain SCTP client-server example's server
+* Description           : This file contain SCTP client-server example's server
 *                         implementation.
 *******************************************************************************/
 

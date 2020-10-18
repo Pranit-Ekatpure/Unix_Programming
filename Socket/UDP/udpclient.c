@@ -1,7 +1,7 @@
 /******************************************************************************
 * Filename              : udpclient.c
 * Author                : Pranit Ekatpure
-* Description           : This file conatain UDP client-server example's client
+* Description           : This file contain UDP client-server example's client
 *                         implementation.
 *******************************************************************************/
 

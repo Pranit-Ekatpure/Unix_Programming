@@ -1,7 +1,7 @@
 /******************************************************************************
 * Filename              : tcpserver.c
 * Author                : Pranit Ekatpure
-* Description           : This file conatain TCP client-server example's server
+* Description           : This file contain TCP client-server example's server
 *                         implementation.
 *******************************************************************************/
 
