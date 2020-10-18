@@ -1,3 +1,13 @@
+/******************************************************************************
+* Filename              : tcpclient.c
+* Author                : Pranit Ekatpure
+* Description           : This file conatain TCP client-server example's client
+*                         implementation.
+*******************************************************************************/
+
+/******************************************************************************
+* Includes
+*******************************************************************************/
 #include <sys/socket.h>
 #include <netinet/in.h>
 #include <stdlib.h>
@@ -6,12 +16,29 @@
 #include <arpa/inet.h>
 #include <stdio.h>
 
+/******************************************************************************
+* Macros
+*******************************************************************************/
 #define	SERV_PORT       9877
 #define IP_ADDR         "127.0.0.1"
 #define	MAXLINE		    4096
 
+/******************************************************************************
+* Function Prototypes
+*******************************************************************************/
 int str_cli(FILE* , int );
 
+/******************************************************************************
+* Function Definitions
+*******************************************************************************/
+/******************************************************************************
+* Function      : main
+* Description   : TCP echo client: main function
+*
+* Parameters    : void
+* Return value  : int
+*
+*******************************************************************************/
 int main()
 {
     int sockfd, return_val;
@@ -65,13 +92,23 @@ int main()
     exit(0);   
 }
 
+/******************************************************************************
+* Function      : str_cli
+* Description   : TCP echo client: str_cli function
+*
+* Parameters    : 
+*   FILE* fp    : file pointer
+*   int sockfd  : socket fd
+* Return value  : int
+*
+*******************************************************************************/
 int str_cli(FILE* fp, int sockfd)
 {
     char sendline[MAXLINE], recvline[MAXLINE];
     int n;
 
     /* Get input line from standard input */
-    while (fgets(sendline, MAXLINE,fp) != NULL)
+    while(fgets(sendline, MAXLINE,fp) != NULL)
     {
         /* write line to server */
         if(write(sockfd, sendline, strlen(sendline)) == -1)
@@ -97,3 +134,4 @@ int str_cli(FILE* fp, int sockfd)
     }
     return 0;
 }
+/******************************************************************************/

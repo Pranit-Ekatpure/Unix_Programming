@@ -1,3 +1,13 @@
+/******************************************************************************
+* Filename              : tcpserver.c
+* Author                : Pranit Ekatpure
+* Description           : This file conatain TCP client-server example's server
+*                         implementation.
+*******************************************************************************/
+
+/******************************************************************************
+* Includes
+*******************************************************************************/
 #include <sys/socket.h>
 #include <netinet/in.h>
 #include <stdlib.h>
@@ -5,13 +15,30 @@
 #include <unistd.h>
 #include <string.h>
 
+/******************************************************************************
+* Preprocessor Constants
+*******************************************************************************/
 #define	SERV_PORT       9877
 #define	LISTENQ		    1024
 #define	MAXLINE		    4096
 
+/******************************************************************************
+* Function Prototypes
+*******************************************************************************/
 void str_echo(int sockfd);
 
-int main()
+/******************************************************************************
+* Function Definitions
+*******************************************************************************/
+/******************************************************************************
+* Function      : main
+* Description   : TCP echo server: main function
+*
+* Parameters    : void
+* Return value  : int
+*
+*******************************************************************************/
+int main(void)
 {
     int listenfd, connfd;
     pid_t childpid;
@@ -74,6 +101,15 @@ int main()
     }
 }
 
+/******************************************************************************
+* Function      : str_echo
+* Description   : TCP echo server: str_echo function
+*
+* Parameters    : 
+*   int sockfd  : socket fd
+* Return value  : void
+*
+*******************************************************************************/
 void str_echo(int sockfd)
 {
     ssize_t n;
@@ -82,3 +118,4 @@ void str_echo(int sockfd)
     while((n = read(sockfd, buf, MAXLINE)) > 0)
         write(sockfd, buf, n); /* Write back to the client */
 }
+/******************************************************************************/

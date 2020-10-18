@@ -1,3 +1,13 @@
+/******************************************************************************
+* Filename              : udpserver.c
+* Author                : Pranit Ekatpure
+* Description           : This file conatain UDP client-server example's server
+*                         implementation.
+*******************************************************************************/
+
+/******************************************************************************
+* Includes
+*******************************************************************************/
 #include <sys/socket.h>
 #include <netinet/in.h>
 #include <stdlib.h>
@@ -5,12 +15,29 @@
 #include <unistd.h>
 #include <string.h>
 
+/******************************************************************************
+* Preprocessor Constants
+*******************************************************************************/
 #define	SERV_PORT       9877
 #define	MAXLINE		    4096
 
+/******************************************************************************
+* Function Prototypes
+*******************************************************************************/
 int datagram_echo(int, struct sockaddr*, socklen_t);
 
-int main()
+/******************************************************************************
+* Function Definitions
+*******************************************************************************/
+/******************************************************************************
+* Function      : main
+* Description   : UDP echo server: main function
+*
+* Parameters    : void
+* Return value  : int
+*
+*******************************************************************************/
+int main(void)
 {
     int sockfd;
     struct sockaddr_in servaddr, cliaddr;
@@ -47,6 +74,17 @@ int main()
     }
 }
 
+/******************************************************************************
+* Function      : datagram_echo
+* Description   : UDP echo server: datagram_echo function
+*
+* Parameters    : 
+*   int sockfd               : socket fd
+*   struct sockaddr *pcliaddr: pointer to address structure
+*   socklen_t clilen         : size of address structure
+* Return value  : void
+*
+*******************************************************************************/
 int datagram_echo(int sockfd, struct sockaddr *pcliaddr, socklen_t clilen)
 {
     int n;
@@ -71,3 +109,4 @@ int datagram_echo(int sockfd, struct sockaddr *pcliaddr, socklen_t clilen)
         }
     }
 }
+/******************************************************************************/

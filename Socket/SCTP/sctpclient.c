@@ -1,3 +1,13 @@
+/******************************************************************************
+* Filename              : sctpclient.c
+* Author                : Pranit Ekatpure
+* Description           : This file conatain SCTP client-server example's client
+*                         implementation.
+*******************************************************************************/
+
+/******************************************************************************
+* Includes
+*******************************************************************************/
 #include <sys/socket.h>
 #include <netinet/in.h>
 #include <netinet/sctp.h>
@@ -7,12 +17,29 @@
 #include <unistd.h>
 #include <string.h>
 
+/******************************************************************************
+* Preprocessor Constants
+*******************************************************************************/
 #define IP_ADDR         "127.0.0.1"
 #define	SERV_PORT       9877
 #define	MAXLINE		    512
 
+/******************************************************************************
+* Function Prototypes
+*******************************************************************************/
 void sctp_cli(FILE *fp, int sock_fd, struct sockaddr *to, socklen_t tolen);
 
+/******************************************************************************
+* Function Definitions
+*******************************************************************************/
+/******************************************************************************
+* Function      : main
+* Description   : main function for SCTP streaming echo client.
+*
+* Parameters    : void
+* Return value  : int
+*
+*******************************************************************************/
 int main()
 {
     int sock_fd;
@@ -56,12 +83,21 @@ int main()
     /* Call echo processing function */
     sctp_cli(stdin, sock_fd, (struct sockaddr*)&serveraddr, sizeof(serveraddr));
 
-    /* Finish up: close SCTP socket, which shuts down any SCTP associations using the socket*/
+    /* Finish up: close SCTP socket, which shuts down any SCTP associations using 
+     * the socket*/
     close(sock_fd);
 
     return 0;
 }
 
+/******************************************************************************
+* Function      : sctp_cli
+* Description   : SCTP sctp_cli function.
+*
+* Parameters    : void
+* Return value  : int
+*
+*******************************************************************************/
 void sctp_cli(FILE *fp, int sock_fd, struct sockaddr *to, socklen_t tolen)
 {
     struct sockaddr_in peeraddr;
@@ -91,7 +127,8 @@ void sctp_cli(FILE *fp, int sock_fd, struct sockaddr *to, socklen_t tolen)
         out_sz = strlen(sendline);
 
         /* Send message */
-        if(sctp_sendmsg(sock_fd, sendline,out_sz, to, tolen, 0, 0, sri.sinfo_stream, 0, 0) == -1)
+        if(sctp_sendmsg(sock_fd, sendline,out_sz, to, tolen, 0, 0, sri.sinfo_stream, 
+            0, 0) == -1)
         {
             fprintf(stderr, "ERROR: failed to send message\n");
             continue;
@@ -100,14 +137,17 @@ void sctp_cli(FILE *fp, int sock_fd, struct sockaddr *to, socklen_t tolen)
         len = sizeof(peeraddr);
         /* Wait for the echoed message from the server */
         if((rd_sz = sctp_recvmsg(sock_fd, recvline, sizeof(recvline),
-                                (struct sockaddr*)&peeraddr, &len, &sri, &msg_flags)) == -1)
+                        (struct sockaddr*)&peeraddr, &len, &sri, &msg_flags)) == -1)
         {
             fprintf(stderr, "ERROR: failed to receive from server\n");
             continue;
         }
 
-        /* Display returned message: the stream number, stream sequence number and the text message */
-        printf("From stream: %d seq: %d (assoc: 0x%x):", sri.sinfo_stream, sri.sinfo_ssn, sri.sinfo_assoc_id);
+        /* Display returned message: the stream number, stream sequence number 
+         * and the text message */
+        printf("From stream: %d seq: %d (assoc: 0x%x):", sri.sinfo_stream, 
+                sri.sinfo_ssn, sri.sinfo_assoc_id);
         printf("%.*s", rd_sz, recvline);
     }
 }
+/******************************************************************************/

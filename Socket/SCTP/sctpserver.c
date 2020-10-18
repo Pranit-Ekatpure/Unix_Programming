@@ -1,3 +1,13 @@
+/******************************************************************************
+* Filename              : sctpserver.c
+* Author                : Pranit Ekatpure
+* Description           : This file conatain SCTP client-server example's server
+*                         implementation.
+*******************************************************************************/
+
+/******************************************************************************
+* Includes
+*******************************************************************************/
 #include <sys/socket.h>
 #include <netinet/in.h>
 #include <netinet/sctp.h>
@@ -6,14 +16,26 @@
 #include <unistd.h>
 #include <string.h>
 
+/******************************************************************************
+* Preprocessor Constants
+*******************************************************************************/
 #define BUFFSIZE        512
 #define	SERV_PORT       9877
 #define	LISTENQ		    1024
-#define NUM_STREAMS     10          /* Default number of streams */
+/* Default number of streams */
+#define NUM_STREAMS     10          
 
-int sctp_get_no_strms(int sock_fd,struct sockaddr *to, socklen_t tolen);
-sctp_assoc_t sctp_address_to_associd(int sock_fd, struct sockaddr *sa, socklen_t salen);
-
+/******************************************************************************
+* Function Definitions
+*******************************************************************************/
+/******************************************************************************
+* Function      : main
+* Description   : main function for SCTP streaming echo server.
+*
+* Parameters    : void
+* Return value  : int
+*
+*******************************************************************************/
 int main(void)
 {
     int sock_fd, msg_flags;
@@ -35,8 +57,8 @@ int main(void)
     bzero(&serveraddr, sizeof(serveraddr));
 
     /* Fill in server address */
-    serveraddr.sin_family = AF_INET;                    /* Using IPv4 */
-    serveraddr.sin_addr.s_addr = htonl(INADDR_ANY);     /* Using wildcard address */ 
+    serveraddr.sin_family = AF_INET;                /* Using IPv4 */
+    serveraddr.sin_addr.s_addr = htonl(INADDR_ANY); /* Using wildcard address */ 
     serveraddr.sin_port = htons(SERV_PORT);
 
     /* Assign the local protocol addres to socket */
@@ -73,7 +95,7 @@ int main(void)
 
         /* Wait for message from any remote peer */
         if((rd_sz = sctp_recvmsg(sock_fd, readbuf, sizeof(readbuf),
-                                (struct sockaddr*)&cliaddr, &len, &sri, &msg_flags)) == -1)
+                            (struct sockaddr*)&cliaddr, &len, &sri, &msg_flags)) == -1)
         {
             fprintf(stderr, "ERROR: failed to receive from remote peer");
             continue;
@@ -83,14 +105,15 @@ int main(void)
          * higher stream than the one on which the message was received */ 
         sri.sinfo_stream++;
 
-        /* Check if the stream number larger than or equal to the maximum streams, if it is,
-         * reset stream to 0 */
+        /* Check if the stream number larger than or equal to the maximum streams,
+         * if it is, reset stream to 0 */
         if(sri.sinfo_stream >= NUM_STREAMS)
             sri.sinfo_stream = 0;
 
-        /* Send back the received message using payload protocol ID, flags and modified stream number */
-        if(sctp_sendmsg(sock_fd, readbuf,rd_sz, (struct sockaddr*)&cliaddr, len, sri.sinfo_ppid,
-                        sri.sinfo_flags, sri.sinfo_stream, 0, 0) == -1)
+        /* Send back the received message using payload protocol ID, flags and modified 
+         * stream number */
+        if(sctp_sendmsg(sock_fd, readbuf,rd_sz, (struct sockaddr*)&cliaddr, len, 
+                        sri.sinfo_ppid, sri.sinfo_flags, sri.sinfo_stream, 0, 0) == -1)
         {
             fprintf(stderr, "ERROR: failed to send back message\n");
             continue;
@@ -98,4 +121,5 @@ int main(void)
     }
     /* This program runs forever until it is shut down with external signal */
 }
+/******************************************************************************/
 

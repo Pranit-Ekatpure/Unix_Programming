@@ -1,3 +1,13 @@
+/******************************************************************************
+* Filename              : udpclient.c
+* Author                : Pranit Ekatpure
+* Description           : This file conatain UDP client-server example's client
+*                         implementation.
+*******************************************************************************/
+
+/******************************************************************************
+* Includes
+*******************************************************************************/
 #include <sys/socket.h>
 #include <netinet/in.h>
 #include <stdlib.h>
@@ -6,13 +16,30 @@
 #include <arpa/inet.h>
 #include <stdio.h>
 
+/******************************************************************************
+* Preprocessor Constants
+*******************************************************************************/
 #define	SERV_PORT       9877
 #define IP_ADDR         "127.0.0.1"
 #define	MAXLINE		    4096
 
+/******************************************************************************
+* Function Prototypes
+*******************************************************************************/
 int datagram_cli(FILE*, int, struct sockaddr*, socklen_t);
 
-int main()
+/******************************************************************************
+* Function Definitions
+*******************************************************************************/
+/******************************************************************************
+* Function      : main
+* Description   : UDP echo client: main function
+*
+* Parameters    : void
+* Return value  : int
+*
+*******************************************************************************/
+int main(void)
 {
     int sockfd, return_val;
     struct sockaddr_in servaddr;
@@ -56,6 +83,17 @@ int main()
     }
 }
 
+/******************************************************************************
+* Function      : datagram_cli
+* Description   : UDP echo client: datagram_cli function
+*
+* Parameters    : 
+*   int sockfd                : socket fd
+*   struct sockaddr *pservaddr: pointer to address structure
+*   socklen_t servlen         : size of address structure
+* Return value  : void
+*
+*******************************************************************************/
 int datagram_cli(FILE *fp, int sockfd, struct sockaddr *pservaddr, socklen_t servlen)
 {
     int n;
@@ -89,3 +127,4 @@ int datagram_cli(FILE *fp, int sockfd, struct sockaddr *pservaddr, socklen_t ser
     }
     return 0;
 }
+/******************************************************************************/
